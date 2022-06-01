@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-deploy
+  name: test
 spec:
   replicas: 1
   selector:
@@ -33,6 +33,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
 spec:
   ingressClassName: public
   rules:
