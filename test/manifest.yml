@@ -46,7 +46,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: nginx
+                name: test
                 port:
                   number: 80
   tls:
