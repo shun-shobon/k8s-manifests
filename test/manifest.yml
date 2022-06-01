@@ -48,7 +48,7 @@ spec:
               service:
                 name: nginx
                 port:
-                  name: http
+                  number: 80
   tls:
     - hosts:
        - test.k8s.s2n.tech
