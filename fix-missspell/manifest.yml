@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.24.1-standalone-strict/all.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fix-missspell
+  namespace: application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fix-missspell
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: fix-missspell
+    spec:
+      containers:
+        - name: fix-missspell
+          image: ghcr.io/shun-shobon/fix-missspell:145fb1d7ecb552e7cbcbf3276fad3d7e699ca4da
+          env:
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: fix-missspell
+                  key: discord-token
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: fix-missspell
+  namespace: application
+spec:
+  encryptedData:
+    discord-token: AgCEzOHo3+HUoz8aeVUxhJQRprL4ahfBt1idc6+MOwYFTbmLQ96L4cmsnFFfGzi99wo0Dcv42NHt7WEozXTVI3K8VpUMLvRkw1qUXbxb+uCTNRKTEkscN4k/+LnrmChDeNsPD31PSCjX/QDc8DPLRCeHBr//MrGuc0bViryFb9jr5dC4tIcqTOP99vKcgWpQ1GCgzyia34IxW8CpRqVCSIHx3eIG0NmwKDkdQmBtemm+sy17XC+3LmFa2VVIsY0m2UzfoBrvzWO1zYS5mfR4s29xL5Z29rrNUTFhVJIY7kYnCE0fbiJx0S7z45i/hQpB8Pb2GaVXDaNYJ1H/0wJMy+eXGZrqifv6QZHTPFHpykTpYVFnNb7SrCrIMDMCslHz+QNIIM8p/rKTKgWMGAuNkIPyU3vLv3g3PTkfN599e+CfqoThEWWkVkdip4kj6N8LTj5Ns3Adsc3sUPNwxSzEgX08oSHyTg2ra2vakFFs92q0WWxudTsfq+QvyQVq+jKwwwhCYDylp/hdY3VdEpn1mp0tGctz+kcbt8zuB+Y02Zxukeh1Z2VjBMXlFab13WcUytpZ+6C+ZZG4L0XjnAZPsvyBdeKwQwzwUU+UZB89L9nt1jGYM8dX5zlZGKNbKjzP08PzEcmoRl7eXds5lNvt+5kBaIYi/Hn+B15dtLAvDlnPpXsITxGLLdQvoxwTj5RyPaVTCyE3Qpvhh/YpsUTjy9YG/joUvYCj0+YpfLz2PG4z56eKbYUSJBipdtLACpDmqMxinkuLxkV2aG9jf+3iZhg54IrHk1ER
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: fix-missspell
+      namespace: application
+
